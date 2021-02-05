@@ -1133,7 +1133,7 @@ RunMarkVario <- function(
     mv <- future_lapply(X = features, FUN = function(x) {
       pp[["marks"]] <- as.data.frame(x = t(x = data[x, ]))
       markvario(X = pp, normalise = TRUE, ...)
-    })
+    }, future.seed = TRUE)
     mv <- unlist(x = mv, recursive = FALSE)
     names(x = mv) <- rownames(x = data)
   } else {
@@ -2202,7 +2202,7 @@ NormalizeData.default <- function(
           what = norm.function,
           args = args
         ))
-      }
+      }, future.seed = TRUE
     )
     do.call(
       what = switch(
@@ -2422,7 +2422,7 @@ ScaleData.default <- function(
             use.umi = use.umi,
             verbose = FALSE
           ))
-        }
+        }, future.seed = TRUE
       )
       if (length(x = split.cells) > 1) {
         merge.indices <- lapply(
@@ -2510,7 +2510,7 @@ ScaleData.default <- function(
         suppressWarnings(expr = data.scale[is.na(x = data.scale)] <- 0)
         CheckGC()
         return(data.scale)
-      }
+      }, future.seed = TRUE
     )
     if (length(x = split.cells) > 1) {
       merge.indices <- lapply(

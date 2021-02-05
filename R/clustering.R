@@ -362,7 +362,7 @@ FindClusters.default <- function(
         results <- list(factor(x = ids))
         names(x = results) <- paste0('res.', r)
         return(results)
-      }
+      }, future.seed = TRUE
     )
     clustering.results <- as.data.frame(x = clustering.results)
   } else {
@@ -920,7 +920,7 @@ AnnoySearch <- function(index, query, k, search.k = -1, include.distance = TRUE)
       res$dist <- 0.5 * (res$dist * res$dist)
     }
     list(res$item + 1, res$distance)
-  })
+  }, future.seed = TRUE)
   for (i in 1:n) {
     idx[i, ] <- res[[i]][[1]]
     if (include.distance) {
